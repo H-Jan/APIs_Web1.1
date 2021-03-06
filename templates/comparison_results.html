@@ -2,33 +2,59 @@
 {% block content %}
 
 <section class="weather-form">
-    {# 
-        TODO: Replace the hard-coded cities and date below with data from the 
-        server.
-    #}
-    <h1>Weather in [CITY1] and [CITY2]</h1>
-    <p>[TODAYS_DATE]</p>
+    <h1>Weather in {{city1_stats}} and {{city2_stats}}</h1>
+    <p>{{ date }}</p>
 
-
-    {#
-        TODO: Add the temperature, description, and min & max temperature below.
-        Replace 'F' with the appropriate units.
-    #}
+<!-- For comparisons, will use if statements-->
+<!-- Temperature -->
+{% if city1_stats['temp'] > city2_stats['temp'] %}
     <p>
-        It is [NUM_DEGREES] [UNITS] [WARMER/COLDER] in [CITY1] than in [CITY2] today.
+        It is {{ city1_stats['temp']}} {{units_letter}}  warmer in {{city1_stats['city']}} than in {{city2_stats['city']}} today.
     </p>
-
+{% else %}
     <p>
-        The humidity in [CITY1] is [AMOUNT] [GREATER/LESS] than in [CITY2].
+        It is {{ city1_stats['temp']}} {{units_letter}}  colder in {{city1_stats['city']}} than in {{city2_stats['city']}} today.
     </p>
+{% endif %}
 
-    <p>
-        The wind speed in [CITY1] is [AMOUNT] [GREATER/LESS] than in [CITY2].
-    </p>
 
+
+<!-- Humidity -->
+{% if city1_stats['humidity'] > city2_stats['humidity'] %}
     <p>
-        The sun sets in [CITY1] [HOURS] hours [EARLIER/LATER] than in [CITY2].
+        The humidity in {{city1_stats['city']}} is {{ city1_stats['humidity'] }}, which is greater than in {{city2_stats['city']}}.
     </p>
+{% else %}
+    <p>
+        The humidity in {{city2_stats['city']}} is {{ city2_stats['humidity'] }}, which is greater than in {{city1_stats['city']}}.
+    </p>
+{% endif %}
+
+<!-- Wind Speed -->
+{% if city1_stats['wind'] > city2_stats['wind'] %}
+    <p>
+        The wind speed in {{city1_stats['city']}} is {{city1_stats['wind']}}, which is greater than in {{city2_stats['city']}}.
+    </p>
+{% else %}
+    <p>
+        The wind speed in {{city2_stats['city']}} is {{city2_stats['wind']}}, which is greater than in {{city1_stats['city']}}.
+    </p>
+{% endif %}
+
+
+
+
+<!-- Sunsets -->
+
+{% if city1_stats['sunset'] > city2_stats['sunset'] %}
+    <p>
+        The sun sets in {{city1_stats['city']}} {{city1_stats['sunset']}} hours, which is later than in {{city2_stats['city']}}.
+    </p>
+{% else %}
+    <p>
+        The sun sets in {{city2_stats['city']}} {{city2_stats['sunset']}} hours, which is later than in {{city1_stats['city']}}.
+    </p>
+{% endif %}
     
 </section>
 
